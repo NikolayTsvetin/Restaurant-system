@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant_System
 {
-    public abstract class Food
+    public abstract class Food : IFood
     {
         private string _name;
         private int _servingSize;
@@ -76,6 +76,11 @@ namespace Restaurant_System
         public override string ToString()
         {
             return $"{this.Name}: {this.ServingSize}g - {string.Format("{0:F2}", this.Price)}";
+        }
+
+        public decimal GetPrice()
+        {
+            return this.Price;
         }
     }
 }

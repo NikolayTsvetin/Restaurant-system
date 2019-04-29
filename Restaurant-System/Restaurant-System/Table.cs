@@ -11,10 +11,10 @@ namespace Restaurant_System
         private int _capacity;
         private int _numberOfPeople;
 
-        private List<Food> FoodOrders = new List<Food>();
-        private List<Drink> DrinkOrders = new List<Drink>();
-        private int TableNumber;
-        private int Capacity
+        protected List<IFood> FoodOrders = new List<IFood>();
+        protected List<IDrink> DrinkOrders = new List<IDrink>();
+        protected int TableNumber;
+        protected int Capacity
         {
             get
             {
@@ -31,7 +31,7 @@ namespace Restaurant_System
                 this._capacity = value;
             }
         }
-        private int NumberOfPeople
+        protected int NumberOfPeople
         {
             get
             {
@@ -48,15 +48,16 @@ namespace Restaurant_System
                 this._numberOfPeople = value;
             }
         }
-        private decimal PricePerPerson;
-        private bool IsReserved;
-        private decimal Price
+        protected decimal PricePerPerson;
+        protected bool IsReserved;
+        protected decimal Price
         {
             get
             {
                 return this.NumberOfPeople * this.PricePerPerson;
             }
         }
+        protected TableTypes TableType;
 
         public Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
@@ -65,40 +66,58 @@ namespace Restaurant_System
             PricePerPerson = pricePerPerson;
         }
 
-        private void Reserve(int numberOfPeople)
-        {
-            this.IsReserved = true;
-            this.NumberOfPeople = numberOfPeople;
-        }
-
-        private void OrderFood(IFood food)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OrderDrink(IDrink drink)
-        {
-            throw new NotImplementedException();
-        }
-
-        private decimal GetBill()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetFreeTableInfo()
         {
-            throw new NotImplementedException();
+            return $"Table: {TableNumber}\nType: {TableType}\nCapacity: {Capacity}\nPrice per Person: {PricePerPerson}";
         }
 
         public string GetOccupiedTableInfo()
         {
-            throw new NotImplementedException();
+            string commonInfoForTable = $"Table: {TableNumber}\nType: {TableType}\nNumber of people: {NumberOfPeople}\n";
+
+            if (FoodOrders.Count == 0 && DrinkOrders.Count == 0)
+            {
+                return commonInfoForTable + "Food orders: None\nDrink orders: None";
+            }
+            else if (FoodOrders.Count > 0 && DrinkOrders.Count == 0)
+            {
+                string foodInfo = "";
+
+                foreach (var food in FoodOrders)
+                {
+                    foodInfo += food.ToString() + "\n";
+                }
+
+                return commonInfoForTable + foodInfo + "Drink orders: None";
+            }
+            else if (FoodOrders.Count == 0 && DrinkOrders.Count > 0)
+            {
+                string drinkInfo = "";
+
+                foreach (var drink in DrinkOrders)
+                {
+                    drinkInfo += drink.ToString() + "\n";
+                }
+
+                return commonInfoForTable + "Food orders: None\n" + drinkInfo;
+            }
+            else
+            {
+                string foodInfo = "";
+                string drinkInfo = "";
+
+                foreach (var food in FoodOrders)
+                {
+                    foodInfo += food.ToString() + "\n";
+                }
+
+                foreach (var drink in DrinkOrders)
+                {
+                    drinkInfo += drink.ToString() + "\n";
+                }
+
+                return commonInfoForTable + foodInfo + drinkInfo;
+            }
         }
     }
 }

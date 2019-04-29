@@ -27,6 +27,12 @@ namespace Restaurant_System
             Console.WriteLine(juice.ToString());
             Console.WriteLine(water.ToString());
             Console.WriteLine(alcohol.ToString());
+
+            Table insideTable = new InsideTable(7, 25);
+            Table outsideTable = new OutsideTable(6, 12);
+
+            Console.WriteLine(outsideTable.GetFreeTableInfo());
+            Console.WriteLine(outsideTable.GetOccupiedTableInfo());
         }
     }
 }

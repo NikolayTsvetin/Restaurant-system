@@ -48,12 +48,17 @@
     <Compile Include="Drink.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FuzzyDrink.cs" />
+    <Compile Include="IDrink.cs" />
+    <Compile Include="IFood.cs" />
+    <Compile Include="InsideTable.cs" />
     <Compile Include="Juice.cs" />
     <Compile Include="MainCourse.cs" />
+    <Compile Include="OutsideTable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Salad.cs" />
     <Compile Include="Table.cs" />
+    <Compile Include="TableTypes.cs" />
     <Compile Include="Water.cs" />
   </ItemGroup>
   <ItemGroup>
