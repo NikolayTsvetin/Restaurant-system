@@ -13,11 +13,6 @@ namespace Restaurant_System
             TableType = TableTypes.InsideTable;
         }
 
-        public void TestMethod()
-        {
-            Console.WriteLine("asdadasd");
-        }
-
         private void Reserve(int numberOfPeople)
         {
             IsReserved = true;
