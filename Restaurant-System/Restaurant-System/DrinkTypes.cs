@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Restaurant_System
 {
-    public interface IFood
+    public enum DrinkTypes
     {
-        string GetName();
-        decimal GetPrice();
-        string ToString();
+        Alcohol,
+        FuzzyDrink,
+        Juice,
+        Water
     }
 }

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Restaurant_System
 {
-    public class MainCourse : Food
+    public class Soup : Food
     {
-        private const int ServingSize = 500;
-        public MainCourse(string name, decimal price) : base(name, ServingSize, price)
+        private const int ServingSize = 245;
+
+        public Soup(string name, decimal price) : base(name, ServingSize, price)
         {
         }
     }

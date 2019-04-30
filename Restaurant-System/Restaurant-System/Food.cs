@@ -59,7 +59,7 @@ namespace Restaurant_System
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Price cannot be less or equal to zero.");
+                    throw new ArgumentException("Price cannot be less or equal to zero!");
                 }
 
                 this._price = value;
@@ -81,6 +81,11 @@ namespace Restaurant_System
         public decimal GetPrice()
         {
             return this.Price;
+        }
+
+        public string GetName()
+        {
+            return this.Name;
         }
     }
 }

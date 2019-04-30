@@ -8,7 +8,9 @@ namespace Restaurant_System
 {
     public class OutsideTable : Table
     {
-        public OutsideTable(int tableNumber, int capacity) : base(tableNumber, capacity, 3.5M)
+        private const decimal CostPerPerson = 3.5M;
+
+        public OutsideTable(int tableNumber, int capacity) : base(tableNumber, capacity, CostPerPerson)
         {
             TableType = TableTypes.OutsideTable;
         }
@@ -44,14 +46,6 @@ namespace Restaurant_System
             }
 
             return totalSum;
-        }
-
-        private void Clear()
-        {
-            FoodOrders = new List<IFood>();
-            DrinkOrders = new List<IDrink>();
-            IsReserved = false;
-            NumberOfPeople = 0;
         }
     }
 }

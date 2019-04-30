@@ -10,29 +10,105 @@ namespace Restaurant_System
     {
         static void Main(string[] args)
         {
-            Food dessert = new Dessert("creme", 20.2M);
-            Food salad = new Salad("ceaser", 30.8M);
-            Food main = new MainCourse("steak", 54.7M);
+            RestaurantController controller = new RestaurantController();
 
-            Console.WriteLine(dessert.ToString());
-            Console.WriteLine(salad.ToString());
-            Console.WriteLine(main.ToString());
+            Console.WriteLine("------- FIRST TEST CASE -------");
+            Console.WriteLine(controller.AddFood("Dessert", "Toffifee", 2.9m));
+            Console.WriteLine(controller.AddDrink("Water", "Spring", 500, "Divna"));
+            Console.WriteLine(controller.AddTable("InsideTable", 1, 10));
+            Console.WriteLine(controller.AddTable("OutsideTable", 2, 20));
+            Console.WriteLine(controller.ReserveTable(5));
+            Console.WriteLine(controller.OrderFood(1, "Toffifee"));
+            Console.WriteLine(controller.OrderDrink(1, "Spring", "Divna"));
+            Console.WriteLine(controller.GetOccupiedTablesInfo());
+            Console.WriteLine(controller.GetFreeTablesInfo());
+            Console.WriteLine(controller.LeaveTable(1));
 
-            Drink fuzzyDrink = new FuzzyDrink("Pepsi", 500, "Cola");
-            Drink juice = new Juice("Strawberry", 250, "Cappy");
-            Drink water = new Water("Mineral water", 750, "Devin");
-            Drink alcohol = new Alcohol("Whiskey", 50, "Jack Daniels");
+            //AddFood Dessert Toffifee 2.90
+            //AddDrink Water Spring 500 Divna
+            //AddTable Inside 1 10
+            //AddTable Outside 2 20
+            //ReserveTable 5
+            //OrderFood 1 Toffifee
+            //OrderDrink 1 Spring Divna
+            //GetOccupiedTablesInfo
+            //GetFreeTablesInfo
+            //LeaveTable 1
+            //END
 
-            Console.WriteLine(fuzzyDrink.ToString());
-            Console.WriteLine(juice.ToString());
-            Console.WriteLine(water.ToString());
-            Console.WriteLine(alcohol.ToString());
+            Console.WriteLine("------- END FIRST TEST CASE -------");
+            Console.WriteLine("------- SECOND TEST CASE -------");
 
-            Table insideTable = new InsideTable(7, 25);
-            Table outsideTable = new OutsideTable(6, 12);
+            RestaurantController secondController = new RestaurantController();
 
-            Console.WriteLine(outsideTable.GetFreeTableInfo());
-            Console.WriteLine(outsideTable.GetOccupiedTableInfo());
+            Console.WriteLine(secondController.AddFood("Dessert", "Toffifee", 2.9m));
+            Console.WriteLine(secondController.AddFood("Salad", "Shopska", 12.9m));
+            Console.WriteLine(secondController.AddFood("Soup", "Bob", 12.9m));
+            Console.WriteLine(secondController.AddFood("MainCourse", "Chushki", -90m));
+            Console.WriteLine(secondController.AddDrink("Water", "Spring", -500, "Divna"));
+            Console.WriteLine(secondController.AddDrink("Alcohol", "Rakia", 200, "YambolskaPerla"));
+            Console.WriteLine(secondController.AddDrink("FuzzyDrink", "PeachSchnapps", 200, "Monin"));
+            Console.WriteLine(secondController.AddTable("InsideTable", 1, 10));
+            Console.WriteLine(secondController.AddTable("InsideTable", 2, 12));
+            Console.WriteLine(secondController.AddTable("InsideTable", 3, 11));
+            Console.WriteLine(secondController.AddTable("OutsideTable", 4, 20));
+            Console.WriteLine(secondController.AddTable("OutsideTable", 5, -2));
+            Console.WriteLine(secondController.AddTable("OutsideTable", 6, 10));
+            Console.WriteLine(secondController.ReserveTable(5));
+            Console.WriteLine(secondController.ReserveTable(1));
+            Console.WriteLine(secondController.ReserveTable(2));
+            Console.WriteLine(secondController.OrderFood(1, "Toffifee"));
+            Console.WriteLine(secondController.OrderFood(1, "Shopska"));
+            Console.WriteLine(secondController.OrderFood(2, "Bob"));
+            Console.WriteLine(secondController.OrderFood(3, "Bob"));
+            Console.WriteLine(secondController.OrderFood(4, "Bob"));
+            Console.WriteLine(secondController.OrderDrink(1, "Spring", "Divna"));
+            Console.WriteLine(secondController.OrderDrink(2, "Spring", "Divna"));
+            Console.WriteLine(secondController.OrderDrink(2, "Spring", "YambolskaPerla"));
+            Console.WriteLine(secondController.OrderDrink(3, "Spring", "Monin"));
+            Console.WriteLine(secondController.GetOccupiedTablesInfo());
+            Console.WriteLine(secondController.GetFreeTablesInfo());
+            Console.WriteLine(secondController.LeaveTable(1));
+            Console.WriteLine(secondController.LeaveTable(2));
+            Console.WriteLine(secondController.GetSummary());
+
+
+
+            //AddFood Dessert Toffifee 2.90
+            //AddFood Salad Shopska 12.90
+            //AddFood Soup Bob 12.90
+            //AddFood MainCourse Chushki - 90
+            //AddDrink Water Spring - 500 Divna
+            //AddDrink Alcohol Rakia 200 YambolskaPerla
+            //AddDrink FuzzyDrink PeachSchnapps 200 Monin
+            //AddTable Inside 1 10
+            //AddTable Inside 2 12
+            //AddTable Inside 3 11
+            //AddTable Outside 4 20
+            //AddTable Outside 5 - 2
+            //AddTable Outside 6 10
+            //ReserveTable 5
+            //ReserveTable 1
+            //ReserveTable 2
+            //OrderFood 1 Toffifee
+            //OrderFood 1 Shopska
+            //OrderFood 2 Bob
+            //OrderFood 3 Bob
+            //OrderFood 4 Bob
+            //OrderDrink 1 Spring Divna
+            //OrderDrink 2 Spring Divna
+            //OrderDrink 2 Spring YambolskaPerla
+            //OrderDrink 3 Spring Monin
+            //GetOccupiedTablesInfo
+            //GetFreeTablesInfo
+            //LeaveTable 1
+            //LeaveTable 2
+            //END
+
+
+
+            Console.WriteLine("------- END SECOND TEST CASE -------");
+
         }
     }
 }

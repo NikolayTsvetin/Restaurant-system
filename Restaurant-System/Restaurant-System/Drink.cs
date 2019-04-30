@@ -102,5 +102,10 @@ namespace Restaurant_System
         {
             return this.Price;
         }
+
+        public string GetName()
+        {
+            return this.Name;
+        }
     }
 }

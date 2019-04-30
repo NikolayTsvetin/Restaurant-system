@@ -8,7 +8,9 @@ namespace Restaurant_System
 {
     public class Salad : Food
     {
-        public Salad(string name, decimal price) : base(name, 300, price)
+        private const int ServingSize = 300;
+
+        public Salad(string name, decimal price) : base(name, ServingSize, price)
         {
         }
     }

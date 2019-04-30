@@ -8,7 +8,9 @@ namespace Restaurant_System
 {
     public class InsideTable : Table
     {
-        public InsideTable(int tableNumber, int capacity) : base(tableNumber, capacity, 2.5M)
+        private const decimal CostPerPerson = 2.5M;
+
+        public InsideTable(int tableNumber, int capacity) : base(tableNumber, capacity, CostPerPerson)
         {
             TableType = TableTypes.InsideTable;
         }
@@ -44,14 +46,6 @@ namespace Restaurant_System
             }
 
             return totalSum;
-        }
-
-        private void Clear()
-        {
-            FoodOrders = new List<IFood>();
-            DrinkOrders = new List<IDrink>();
-            IsReserved = false;
-            NumberOfPeople = 0;
         }
     }
 }

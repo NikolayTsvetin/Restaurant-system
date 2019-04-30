@@ -11,10 +11,10 @@ namespace Restaurant_System
         private int _capacity;
         private int _numberOfPeople;
 
-        protected List<IFood> FoodOrders = new List<IFood>();
-        protected List<IDrink> DrinkOrders = new List<IDrink>();
-        protected int TableNumber;
-        protected int Capacity
+        public List<IFood> FoodOrders = new List<IFood>();
+        public List<IDrink> DrinkOrders = new List<IDrink>();
+        public int TableNumber;
+        public int Capacity
         {
             get
             {
@@ -31,7 +31,7 @@ namespace Restaurant_System
                 this._capacity = value;
             }
         }
-        protected int NumberOfPeople
+        public int NumberOfPeople
         {
             get
             {
@@ -48,8 +48,8 @@ namespace Restaurant_System
                 this._numberOfPeople = value;
             }
         }
-        protected decimal PricePerPerson;
-        protected bool IsReserved;
+        public decimal PricePerPerson;
+        public bool IsReserved;
         protected decimal Price
         {
             get
@@ -81,7 +81,7 @@ namespace Restaurant_System
             }
             else if (FoodOrders.Count > 0 && DrinkOrders.Count == 0)
             {
-                string foodInfo = "";
+                string foodInfo = "Food orders: " + FoodOrders.Count + "\n";
 
                 foreach (var food in FoodOrders)
                 {
@@ -92,7 +92,7 @@ namespace Restaurant_System
             }
             else if (FoodOrders.Count == 0 && DrinkOrders.Count > 0)
             {
-                string drinkInfo = "";
+                string drinkInfo = "Drink orders: " + DrinkOrders.Count + "\n";
 
                 foreach (var drink in DrinkOrders)
                 {
@@ -103,8 +103,8 @@ namespace Restaurant_System
             }
             else
             {
-                string foodInfo = "";
-                string drinkInfo = "";
+                string foodInfo = "Food orders: " + FoodOrders.Count + "\n";
+                string drinkInfo = "Drink orders: " + DrinkOrders.Count + "\n";
 
                 foreach (var food in FoodOrders)
                 {
@@ -118,6 +118,14 @@ namespace Restaurant_System
 
                 return commonInfoForTable + foodInfo + drinkInfo;
             }
+        }
+
+        public void Clear()
+        {
+            FoodOrders = new List<IFood>();
+            DrinkOrders = new List<IDrink>();
+            IsReserved = false;
+            NumberOfPeople = 0;
         }
     }
 }

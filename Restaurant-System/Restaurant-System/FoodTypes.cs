@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Restaurant_System
 {
-    public interface IFood
-    {
-        string GetName();
-        decimal GetPrice();
-        string ToString();
+    public enum FoodTypes {
+        Dessert,
+        MainCourse,
+        Salad,
+        Soup
     }
 }

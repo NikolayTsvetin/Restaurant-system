@@ -8,6 +8,7 @@ namespace Restaurant_System
 {
     public interface IDrink
     {
+        string GetName();
         decimal GetPrice();
         string ToString();
     }

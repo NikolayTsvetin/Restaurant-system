@@ -46,7 +46,9 @@
     <Compile Include="Alcohol.cs" />
     <Compile Include="Dessert.cs" />
     <Compile Include="Drink.cs" />
+    <Compile Include="DrinkTypes.cs" />
     <Compile Include="Food.cs" />
+    <Compile Include="FoodTypes.cs" />
     <Compile Include="FuzzyDrink.cs" />
     <Compile Include="IDrink.cs" />
     <Compile Include="IFood.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestaurantController.cs" />
     <Compile Include="Salad.cs" />
+    <Compile Include="Soup.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="TableTypes.cs" />
     <Compile Include="Water.cs" />
