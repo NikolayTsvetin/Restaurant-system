@@ -14,34 +14,121 @@ namespace Restaurant_System
         private Dictionary<int, decimal> ordersPerTable = new Dictionary<int, decimal>();
         private decimal paidBills = 0;
 
+        private Food CreateFood(string type, string name, decimal price)
+        {
+            Food createdFood = null;
+
+            switch (type)
+            {
+                case "Dessert":
+                    createdFood = new Dessert(name, price);
+                    break;
+                case "MainCourse":
+                    createdFood = new MainCourse(name, price);
+                    break;
+                case "Salad":
+                    createdFood = new Salad(name, price);
+                    break;
+                case "Soup":
+                    createdFood = new Soup(name, price);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            return createdFood;
+        }
+
+        private Drink CreateDrink(string type, string name, int servingSize, string brand)
+        {
+            Drink createdDrink = null;
+
+            switch (type)
+            {
+                case "Alcohol":
+                    createdDrink = new Alcohol(name, servingSize, brand);
+                    break;
+                case "FuzzyDrink":
+                    createdDrink = new FuzzyDrink(name, servingSize, brand);
+                    break;
+                case "Juice":
+                    createdDrink = new Juice(name, servingSize, brand);
+                    break;
+                case "Water":
+                    createdDrink = new Water(name, servingSize, brand);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            return createdDrink;
+        }
+
+        private Table CreateTable(string type, int tableNumber, int capacity)
+        {
+            Table createdTable = null;
+
+            switch (type)
+            {
+                case "InsideTable":
+                    createdTable = new InsideTable(tableNumber, capacity);
+                    break;
+                case "OutsideTable":
+                    createdTable = new OutsideTable(tableNumber, capacity);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            return createdTable;
+        }
+
+        private Table FindTableByTableNumber(int tableNumber)
+        {
+            for (int i = 0; i < Tables.Count; i++)
+            {
+                if (Tables[i].TableNumber == tableNumber)
+                {
+                    return Tables[i];
+                }
+            }
+
+            return null;
+        }
+
+        private IFood FindFoodByName(string foodName)
+        {
+            for (int i = 0; i < Menu.Count; i++)
+            {
+                if (Menu[i].GetName() == foodName)
+                {
+                    return Menu[i];
+                }
+            }
+
+            return null;
+        }
+
+        private IDrink FindDrinkByName(string drinkName)
+        {
+            for (int i = 0; i < Drinks.Count; i++)
+            {
+                if (Drinks[i].GetName() == drinkName)
+                {
+                    return Drinks[i];
+                }
+            }
+
+            return null;
+        }
+
         public string AddFood(string type, string name, decimal price)
         {
             try
             {
-                if (type == FoodTypes.Dessert.ToString())
-                {
-                    Food dessert = new Dessert(name, price);
+                Food createdFood = CreateFood(type, name, price);
 
-                    Menu.Add(dessert);
-                }
-                else if (type == FoodTypes.MainCourse.ToString())
-                {
-                    Food mainCourse = new MainCourse(name, price);
-
-                    Menu.Add(mainCourse);
-                }
-                else if (type == FoodTypes.Salad.ToString())
-                {
-                    Food salad = new Salad(name, price);
-
-                    Menu.Add(salad);
-                }
-                else if (type == FoodTypes.Soup.ToString())
-                {
-                    Food soup = new Soup(name, price);
-
-                    Menu.Add(soup);
-                }
+                Menu.Add(createdFood);
             }
             catch (ArgumentException exception)
             {
@@ -55,30 +142,9 @@ namespace Restaurant_System
         {
             try
             {
-                if (type == DrinkTypes.Alcohol.ToString())
-                {
-                    Drink alcohol = new Alcohol(name, servingSize, brand);
+                Drink createdDrink = CreateDrink(type, name, servingSize, brand);
 
-                    Drinks.Add(alcohol);
-                }
-                else if (type == DrinkTypes.FuzzyDrink.ToString())
-                {
-                    Drink fuzzyDrink = new FuzzyDrink(name, servingSize, brand);
-
-                    Drinks.Add(fuzzyDrink);
-                }
-                else if (type == DrinkTypes.Juice.ToString())
-                {
-                    Drink juice = new Juice(name, servingSize, brand);
-
-                    Drinks.Add(juice);
-                }
-                else if (type == DrinkTypes.Water.ToString())
-                {
-                    Drink water = new Water(name, servingSize, brand);
-
-                    Drinks.Add(water);
-                }
+                Drinks.Add(createdDrink);
             }
             catch (ArgumentException exception)
             {
@@ -92,24 +158,15 @@ namespace Restaurant_System
         {
             try
             {
-                if (type == TableTypes.InsideTable.ToString())
-                {
-                    Table insideTable = new InsideTable(tableNumber, capacity);
+                Table createdTable = CreateTable(type, tableNumber, capacity);
 
-                    Tables.Add(insideTable);
-                }
-                else if (type == TableTypes.OutsideTable.ToString())
-                {
-                    Table outsideTable = new OutsideTable(tableNumber, capacity);
-
-                    Tables.Add(outsideTable);
-                }
+                Tables.Add(createdTable);
             }
             catch (ArgumentException exception)
             {
                 return exception.Message;
             }
-            
+
             return $"Added table number {tableNumber} in the restaurant";
         }
 
@@ -131,100 +188,79 @@ namespace Restaurant_System
 
         public string OrderFood(int tableNumber, string foodName)
         {
-            var foundTable = Tables.Where(table => table.TableNumber == tableNumber);
+            var foundTable = FindTableByTableNumber(tableNumber);
 
-            if (foundTable.ToList().Count == 0)
+            if (foundTable == null)
             {
                 return $"Could not find table with {tableNumber}";
             }
 
-            for (int i = 0; i < Tables.Count; i++)
+            var foundFood = FindFoodByName(foodName);
+
+            if (foundFood == null)
             {
-                if (Tables[i].TableNumber == tableNumber)
-                {
-                    for (int j = 0; j < Menu.Count; j++)
-                    {
-                        if (Menu[j].GetName() == foodName)
-                        {
-                            if (ordersPerTable.ContainsKey(tableNumber))
-                            {
-                                ordersPerTable[tableNumber] += Menu[j].GetPrice();
-                            }
-                            else
-                            {
-                                ordersPerTable.Add(tableNumber, Menu[j].GetPrice());
-                            }
-
-                            Tables[i].FoodOrders.Add(Menu[j]);
-
-                            return $"Table {tableNumber} ordered {foodName}";
-                        }
-                    }
-                }
+                return $"No {foodName} in the menu";
             }
 
-            return $"No {foodName} in the menu";
+            if (ordersPerTable.ContainsKey(tableNumber))
+            {
+                ordersPerTable[tableNumber] += foundFood.GetPrice();
+            }
+            else
+            {
+                ordersPerTable.Add(tableNumber, foundFood.GetPrice());
+            }
+
+            foundTable.FoodOrders.Add(foundFood);
+
+            return $"Table {tableNumber} ordered {foodName}";
         }
 
         public string OrderDrink(int tableNumber, string drinkName, string drinkBrand)
         {
-            var foundTable = Tables.Where(table => table.TableNumber == tableNumber);
+            var foundTable = FindTableByTableNumber(tableNumber);
 
-            if (foundTable.ToList().Count == 0)
+            if (foundTable == null)
             {
                 return $"Could not find table with {tableNumber}";
             }
 
-            for (int i = 0; i < Tables.Count; i++)
+            var foundDrink = FindDrinkByName(drinkName);
+
+            if (foundDrink == null)
             {
-                if (Tables[i].TableNumber == tableNumber)
-                {
-                    for (int j = 0; j < Drinks.Count; j++)
-                    {
-                        if (Drinks[j].GetName() == drinkName)
-                        {
-                            if (ordersPerTable.ContainsKey(tableNumber))
-                            {
-                                ordersPerTable[tableNumber] += Drinks[j].GetPrice();
-                            }
-                            else
-                            {
-                                ordersPerTable.Add(tableNumber, Drinks[j].GetPrice());
-                            }
-
-                            Tables[i].DrinkOrders.Add(Drinks[j]);
-
-                            return $"Table {tableNumber} ordered {drinkName} {drinkBrand}";
-                        }
-                    }
-                }
+                return $"There is no {drinkName} {drinkBrand} available";
             }
 
-            return $"There is no {drinkName} {drinkBrand} available";
+            if (ordersPerTable.ContainsKey(tableNumber))
+            {
+                ordersPerTable[tableNumber] += foundDrink.GetPrice();
+            }
+            else
+            {
+                ordersPerTable.Add(tableNumber, foundDrink.GetPrice());
+            }
+
+            foundTable.DrinkOrders.Add(foundDrink);
+
+            return $"Table {tableNumber} ordered {drinkName} {drinkBrand}";
         }
 
         public string LeaveTable(int tableNumber)
         {
-            var foundTable = Tables.Where(table => table.TableNumber == tableNumber);
+            var foundTable = FindTableByTableNumber(tableNumber);
 
-            if (foundTable.ToList().Count == 0)
+            if (foundTable == null)
             {
                 return $"Table with number: {tableNumber} is not found.";
             }
 
             decimal billForTable = ordersPerTable[tableNumber];
 
-            for (int i = 0; i < Tables.Count; i++)
-            {
-                if (Tables[i].TableNumber == tableNumber)
-                {
-                    billForTable += (Tables[i].PricePerPerson * Tables[i].NumberOfPeople);
-
-                    paidBills += billForTable;
-                    ordersPerTable.Remove(tableNumber);
-                    Tables[i].Clear();
-                }
-            }
+            billForTable += (foundTable.PricePerPerson * foundTable.NumberOfPeople);
+            paidBills += billForTable;
+            ordersPerTable.Remove(tableNumber);
+            foundTable.Clear();
 
             return $"Table: {tableNumber}\nBill: {billForTable:f2}";
         }
